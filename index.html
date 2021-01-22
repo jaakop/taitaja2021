@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fi">
+  <head>
+    <script src="getAJAX.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="mainStyle.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mustat Renkaat</title>
+  </head>
+  <body class="noMargin noPadding">
+    <div class="headerBar noMargin noPadding">
+      <img src="images/LogoDark.jpg" alt="Dark logo" />
+    </div>
+
+    <div class="headerSplash noMargin noPadding">
+      <div class="rengasSelect">
+        <h2 class="header noMargin noPadding rengasHeader">Selaa renkaita</h2>
+        <form>
+          <h3 class="header noMargin noPadding kokoHeader">Koko</h3>
+          <select onchange="getTyres()" name="sizeSelect" id="sizeSelect">
+            <option value="" label=""></option>
+          </select>
+        </form>
+        <table id="rengasTable">
+          <tr>
+            <th>
+              <button
+                onclick="sortTyresByPrice();"
+                type="button"
+                id="hintaButton"
+              >
+                Hinta
+              </button>
+            </th>
+            <th>
+              <button
+                onclick="sortTyresByMerkki();"
+                type="button"
+                id="merkkiButton"
+              >
+                Merkki
+              </button>
+            </th>
+            <th>Malli</th>
+            <th>Tyyppi</th>
+            <th>Saldo</th>
+          </tr>
+        </table>
+        <div class="noMargin noPadding verticalAdd"></div>
+      </div>
+    </div>
+
+    <div class="noMargin noPadding footer text">
+      <div>
+        <h2 class="header">Yritys</h2>
+        <p>Mustapään Auto Oy</p>
+        <p>Mustat Renkaat</p>
+        <p>Kosteenkatu 1, 86300 Oulainen</p>
+        <p>Puh. 040-7128158</p>
+        <p>email. myyntimies@mustatrenkaat.net</p>
+      </div>
+      <div class="verticalBanner"></div>
+      <iframe class="video" width="560" height="315" src="https://www.youtube-nocookie.com/embed/joBmbh0AGSQ" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div><img class="mapImg" src="./images/Map.jpg" alt="Kartta yrityksen sijainnista"></div>
+    </div>
+
+    <script>
+      let tyres;
+
+      let hintaSorting = false;
+      let merkkiSorting = false;
+
+      function sortTyresByPrice() {
+        document.getElementById("merkkiButton").innerHTML = "Merkki";
+
+        if (hintaSorting === false) {
+          tyres.sort((a, b) => parseFloat(b.Hinta) - parseFloat(a.Hinta));
+          hintaSorting = true;
+          document.getElementById("hintaButton").innerHTML = "Hinta &uarr;";
+        } else if (hintaSorting === true) {
+          tyres.sort((a, b) => parseFloat(a.Hinta) - parseFloat(b.Hinta));
+          hintaSorting = false;
+          document.getElementById("hintaButton").innerHTML = "Hinta &darr;";
+        }
+
+        renderTable();
+      }
+
+      function sortTyresByMerkki() {
+        document.getElementById("hintaButton").innerHTML = "Hinta";
+
+        if (merkkiSorting === false) {
+          tyres.sort((a, b) => (a.Merkki > b.Merkki) - (a.Merkki < b.Merkki));
+          merkkiSorting = true;
+          document.getElementById("merkkiButton").innerHTML = "Merkki &uarr;";
+        } else if (merkkiSorting === true) {
+          tyres.sort((a, b) => (b.Merkki > a.Merkki) - (b.Merkki < a.Merkki));
+          merkkiSorting = false;
+          document.getElementById("merkkiButton").innerHTML = "Merkki &darr;";
+        }
+
+        renderTable();
+      }
+
+      function clearCells(table) {
+        while (table.rows.length > 1) table.deleteRow(table.rows.length - 1);
+      }
+
+      function renderTable() {
+        let table = document.getElementById("rengasTable");
+        clearCells(table);
+
+        for (let i = 0; i < tyres.length; i++) {
+          let row = table.insertRow(table.rows.length);
+
+          row.insertCell(0).innerHTML =
+            tyres[i].Hinta.replace(".", ",") + " 	&euro;";
+          row.insertCell(1).innerHTML = tyres[i].Merkki;
+          row.insertCell(2).innerHTML = tyres[i].Malli;
+          row.insertCell(3).innerHTML = tyres[i].Tyyppi;
+          row.insertCell(4).innerHTML = tyres[i].Saldo;
+        }
+      }
+
+      async function getTyres() {
+        let size = document.getElementById("sizeSelect").value;
+        let table = document.getElementById("rengasTable");
+
+        if (!size) return;
+
+        tyres = await getAJAX("gettyresbysize?size=" + size);
+        renderTable();
+      }
+
+      async function getSizes() {
+        let sizes = await getAJAX("getsizes");
+        let sizeSelect = document.getElementById("sizeSelect");
+
+        for (let i = 0; i < sizes.length; i++) {
+          sizeSelect.options[sizeSelect.options.length] = new Option(
+            sizes[i],
+            sizes[i]
+          );
+        }
+      }
+
+      getSizes();
+    </script>
+  </body>
+</html>

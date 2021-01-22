@@ -1,0 +1,176 @@
+/*
+font-family: 'Racing Sans One', cursive; -> Header 
+font-family: 'Roboto'; -> Text
+*/
+:root {
+    --pink: #F205B3;
+    --darkGreen: #012326;
+    --green: #034001;
+    --darkBlue:#012840;
+    --blue:#023059;
+    --heading1: 24px;
+    --heading2: 18px;
+    --heading3: 16px;
+    --textSize: 14px;
+}
+
+.noMargin {
+    margin: 0;
+}
+
+.noPadding {
+    padding: 0;
+}
+
+.header {
+    /* Don't know why I shouldn't know why but this fixed the text rendering */
+    font: 400 13.3333px Arial;
+    font-family: 'Racing Sans One', cursive;
+    font-size: var(--heading1);
+}
+
+.text {
+    font-family: 'Roboto';
+    font-size: var(--textSize); 
+}
+
+.headerBar {
+    background-color: var(--darkGreen);
+    text-align: center;
+    height: 20vh;
+}
+
+.headerBar img {
+    height: 50vw;
+    max-height: 20vh;
+}
+
+.headerSplash {
+    background-image: url("./images/Splash.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-position-y: 0;
+    height: 80vh;
+    position: relative;
+}
+
+.rengasSelect {
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    margin-left: calc(-250px - 25px);
+    text-align: center;
+    background-color: var(--blue);
+    color: white;
+    padding: 25px;
+    width: 500px;
+    border-radius: 5px;
+}
+
+.rengasSelect select {
+    font-family: 'Roboto';
+    font-size: var(--textSize);
+    background-color: white;
+}
+
+.rengasSelect table {
+    text-align: left;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+.rengasSelect table th {
+    padding: 6px;
+    /* Don't know why I shouldn't know why but this fixed the text rendering */
+    font: 400 13.3333px Arial;
+    font-family: 'Racing Sans One', cursive;
+    font-size: var(--heading3);    
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+}
+
+.verticalAdd {
+    background-image: url("./images/verticalBanner.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: -125px;
+    margin-bottom: -10px;
+    margin-top: 10px;
+    height: 100px;
+    max-height: 200px;
+}
+
+.rengasSelect table th button {
+    font-size: var(--heading3);
+    font-family: 'Racing Sans One', cursive;
+    color: white;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.rengasSelect table td {
+    font-family: 'Roboto';
+    font-size: var(--textSize);
+}
+
+.rengasHeader {
+    font-size: var(--heading1);
+    margin-bottom: 25px;
+}
+
+.kokoHeader {
+    font-size: var(--heading3);
+}
+
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    position: absolute;
+    align-items: center;
+    top: 100vh;
+    background-color: var(--darkBlue) !important;
+    width: calc(100% - 40px);
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+}
+
+.footer div {
+    background-color: var(--darkBlue);
+}
+
+.mapImg {
+    height: 50vw;
+    max-height: 36vh;
+    margin-top: 1vh;
+}
+
+.verticalBanner {
+    height: 36vh;
+    min-width: 175px;
+    max-width: 175px;
+    margin-top: 1vh;
+    background-image: url("./images/Banner2.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 560px) {
+    .rengasSelect {
+        width: 275px;
+        margin-left: calc(-137.5px - 25px);
+    }
+    .verticalAdd {
+        background-position-y: -50px;
+    }
+}
