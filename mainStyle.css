@@ -2,6 +2,7 @@
 font-family: 'Racing Sans One', cursive; -> Header 
 font-family: 'Roboto'; -> Text
 */
+/*Set common variables*/
 :root {
     --pink: #F205B3;
     --darkGreen: #012326;
@@ -14,6 +15,7 @@ font-family: 'Roboto'; -> Text
     --textSize: 14px;
 }
 
+/*Common classes*/
 .noMargin {
     margin: 0;
 }
@@ -23,7 +25,7 @@ font-family: 'Roboto'; -> Text
 }
 
 .header {
-    /* Don't know why I shouldn't know why but this fixed the text rendering */
+    /* Don't know why, I shouldn't know why, but this fixed the text rendering */
     font: 400 13.3333px Arial;
     font-family: 'Racing Sans One', cursive;
     font-size: var(--heading1);
@@ -34,6 +36,7 @@ font-family: 'Roboto'; -> Text
     font-size: var(--textSize); 
 }
 
+/*Top bar classes*/
 .headerBar {
     background-color: var(--darkGreen);
     text-align: center;
@@ -45,6 +48,7 @@ font-family: 'Roboto'; -> Text
     max-height: 20vh;
 }
 
+/*MainView elements*/
 .headerSplash {
     background-image: url("./images/Splash.jpg");
     background-repeat: no-repeat;
@@ -56,10 +60,11 @@ font-family: 'Roboto'; -> Text
     position: relative;
 }
 
+/*Tyre view in main view*/
 .rengasSelect {
     position: absolute;
     left: 50%;
-    top: 35%;
+    top: 20%;
     margin-left: calc(-250px - 25px);
     text-align: center;
     background-color: var(--blue);
@@ -86,7 +91,7 @@ font-family: 'Roboto'; -> Text
 
 .rengasSelect table th {
     padding: 6px;
-    /* Don't know why I shouldn't know why but this fixed the text rendering */
+    /* Don't know why, I shouldn't know why, but this fixed the text rendering */
     font: 400 13.3333px Arial;
     font-family: 'Racing Sans One', cursive;
     font-size: var(--heading3);    
@@ -131,6 +136,12 @@ font-family: 'Roboto'; -> Text
     font-size: var(--heading3);
 }
 
+.orderCont {
+    margin-top: 25px;
+}
+
+
+/*Footer elements*/
 .footer {
     display: flex;
     flex-wrap: wrap;
@@ -166,6 +177,13 @@ font-family: 'Roboto'; -> Text
     background-repeat: no-repeat;
 }
 
+/* Class to make elemnt invisible*/
+/*Used with error in this case*/
+.invisible {
+    transform: scale(0);
+}
+
+/*Responsivity values*/
 @media screen and (max-width: 560px) {
     .rengasSelect {
         width: 275px;
@@ -176,5 +194,8 @@ font-family: 'Roboto'; -> Text
     }
     .verticalAdd {
         background-position-y: -50px;
+    }
+    .footer {
+        top: 110vh;
     }
 }

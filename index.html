@@ -1,155 +1,226 @@
 <!DOCTYPE html>
 <html lang="fi">
-  <head>
-    <script src="getAJAX.js"></script>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="mainStyle.css" />
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mustat Renkaat</title>
-  </head>
-  <body class="noMargin noPadding">
-    <div class="headerBar noMargin noPadding">
-      <img src="images/LogoDark.jpg" alt="Dark logo" />
-    </div>
 
-    <div class="headerSplash noMargin noPadding">
-      <div class="rengasSelect">
-        <h2 class="header noMargin noPadding rengasHeader">Selaa renkaita</h2>
-        <form>
-          <h3 class="header noMargin noPadding kokoHeader">Koko</h3>
-          <select onchange="getTyres()" name="sizeSelect" id="sizeSelect">
-            <option value="" label="Valitse koko"></option>
-          </select>
-        </form>
-        <table id="rengasTable">
-          <tr>
-            <th>
-              <button
-                onclick="sortTyresByPrice();"
-                type="button"
-                id="hintaButton"
-              >
-                Hinta
-              </button>
-            </th>
-            <th>
-              <button
-                onclick="sortTyresByMerkki();"
-                type="button"
-                id="merkkiButton"
-              >
-                Merkki
-              </button>
-            </th>
-            <th>Malli</th>
-            <th>Tyyppi</th>
-            <th>Saldo</th>
-          </tr>
-        </table>
-        <div class="noMargin noPadding verticalAdd"></div>
+<head>
+  <script src="getAJAX.js"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="mainStyle.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mustat Renkaat</title>
+</head>
+
+<body class="noMargin noPadding">
+  <div class="headerBar noMargin noPadding">
+    <img src="images/LogoDark.jpg" alt="Dark logo" />
+  </div>
+
+  <div class="headerSplash noMargin noPadding">
+    <div class="rengasSelect">
+      <h2 class="header noMargin noPadding rengasHeader">Selaa renkaita</h2>
+      <form>
+        <h3 class="header noMargin noPadding kokoHeader">Koko</h3>
+        <select onchange="getTyres()" name="sizeSelect" id="sizeSelect">
+          <option value="" label="Valitse koko"></option>
+        </select>
+      </form>
+      <table id="rengasTable">
+        <tr>
+          <th>
+            <button onclick="sortTyresByPrice();" type="button" id="hintaButton">
+              Hinta
+            </button>
+          </th>
+          <th>
+            <button onclick="sortTyresByMerkki();" type="button" id="merkkiButton">
+              Merkki
+            </button>
+          </th>
+          <th>Malli</th>
+          <th>Tyyppi</th>
+          <th>Saldo</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </table>
+      <div class="noMargin noPadding verticalAdd"></div>
+      <div id="OrderCont" class="orderCont">
+        <input type="email" id="mail" placeholder="Sähköposti&#42;" required></input>
+        <input type="text" id="name" placeholder="Nimi&#42;" required></input>
+        <input type="text" id="address" placeholder="Osoite&#42;" required></input>
+        <input type="text" id="phone" placeholder="Puhelinnumero&#42;" required></input>
+        <select id="delivery" required>
+          <option value="" label="Valitse toimitus&#42;"></option>
+          <option value="Matkahuolto" label="Matkahuolto"></option>
+          <option value="Nouto" label="Nouto liikkestä"></option>
+        </select>
+        <button onclick="Order()">Tilaa</button>
+        <p id="error" class="noPadding noMargin invisible">Tilaus epäonnistui, tarkista kentät</p>
       </div>
     </div>
+  </div>
 
-    <div class="noMargin noPadding footer text">
-      <div>
-        <h2 class="header">Yritys</h2>
-        <p>Mustapään Auto Oy</p>
-        <p>Mustat Renkaat</p>
-        <p>Kosteenkatu 1, 86300 Oulainen</p>
-        <p>Puh. 040-7128158</p>
-        <p>email. myyntimies@mustatrenkaat.net</p>
-      </div>
-      <div class="verticalBanner"></div>
-      <iframe class="video" width="560" height="315" src="https://www.youtube-nocookie.com/embed/joBmbh0AGSQ" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      <div><img class="mapImg" src="./images/Map.jpg" alt="Kartta yrityksen sijainnista"></div>
+  <div class="noMargin noPadding footer text">
+    <div>
+      <h2 class="header">Yritys</h2>
+      <p>Mustapään Auto Oy</p>
+      <p>Mustat Renkaat</p>
+      <p>Kosteenkatu 1, 86300 Oulainen</p>
+      <p>Puh. 040-7128158</p>
+      <p>email. myyntimies@mustatrenkaat.net</p>
     </div>
+    <div class="verticalBanner"></div>
+    <iframe class="video" width="560" height="315" src="https://www.youtube-nocookie.com/embed/joBmbh0AGSQ"
+      allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe class="noMargin noPadding mapImg" width="560" height="315" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=24.817133545875553%2C64.26468652521265%2C24.819644093513492%2C64.26551225233781&amp;layer=mapnik" style="border: 1px solid black"></iframe>
+  </div>
 
-    <script>
-      let tyres;
+  <script>
+    let tyres;
 
-      let hintaSorting = false;
-      let merkkiSorting = false;
+    let hintaSorting = false;
+    let merkkiSorting = false;
 
-      function sortTyresByPrice() {
-        document.getElementById("merkkiButton").innerHTML = "Merkki";
+    let selectedTyres = []
 
-        if (hintaSorting === false) {
-          tyres.sort((a, b) => parseFloat(b.Hinta) - parseFloat(a.Hinta));
-          hintaSorting = true;
-          document.getElementById("hintaButton").innerHTML = "Hinta &uarr;";
-        } else if (hintaSorting === true) {
-          tyres.sort((a, b) => parseFloat(a.Hinta) - parseFloat(b.Hinta));
-          hintaSorting = false;
-          document.getElementById("hintaButton").innerHTML = "Hinta &darr;";
-        }
+    function sortTyresByPrice() {
+      document.getElementById("merkkiButton").innerHTML = "Merkki";
 
-        renderTable();
+      if (hintaSorting === false) {
+        tyres.sort((a, b) => parseFloat(b.Hinta) - parseFloat(a.Hinta));
+        hintaSorting = true;
+        document.getElementById("hintaButton").innerHTML = "Hinta &uarr;";
+      } else if (hintaSorting === true) {
+        tyres.sort((a, b) => parseFloat(a.Hinta) - parseFloat(b.Hinta));
+        hintaSorting = false;
+        document.getElementById("hintaButton").innerHTML = "Hinta &darr;";
       }
 
-      function sortTyresByMerkki() {
-        document.getElementById("hintaButton").innerHTML = "Hinta";
+      renderTable();
+    }
 
-        if (merkkiSorting === false) {
-          tyres.sort((a, b) => (a.Merkki > b.Merkki) - (a.Merkki < b.Merkki));
-          merkkiSorting = true;
-          document.getElementById("merkkiButton").innerHTML = "Merkki &uarr;";
-        } else if (merkkiSorting === true) {
-          tyres.sort((a, b) => (b.Merkki > a.Merkki) - (b.Merkki < a.Merkki));
-          merkkiSorting = false;
-          document.getElementById("merkkiButton").innerHTML = "Merkki &darr;";
-        }
+    function sortTyresByMerkki() {
+      document.getElementById("hintaButton").innerHTML = "Hinta";
 
-        renderTable();
+      if (merkkiSorting === false) {
+        tyres.sort((a, b) => (a.Merkki > b.Merkki) - (a.Merkki < b.Merkki));
+        merkkiSorting = true;
+        document.getElementById("merkkiButton").innerHTML = "Merkki &uarr;";
+      } else if (merkkiSorting === true) {
+        tyres.sort((a, b) => (b.Merkki > a.Merkki) - (b.Merkki < a.Merkki));
+        merkkiSorting = false;
+        document.getElementById("merkkiButton").innerHTML = "Merkki &darr;";
       }
 
-      function clearCells(table) {
-        while (table.rows.length > 1) table.deleteRow(table.rows.length - 1);
+      renderTable();
+    }
+
+    function clearCells(table) {
+      while (table.rows.length > 1) table.deleteRow(table.rows.length - 1);
+    }
+
+    function renderTable() {
+      let table = document.getElementById("rengasTable");
+      clearCells(table);
+
+      for (let i = 0; i < tyres.length; i++) {
+        let row = table.insertRow(table.rows.length);
+
+        row.insertCell(0).innerHTML =
+          tyres[i].Hinta.replace(".", ",") + " 	&euro;";
+        row.insertCell(1).innerHTML = tyres[i].Merkki;
+        row.insertCell(2).innerHTML = tyres[i].Malli;
+        row.insertCell(3).innerHTML = tyres[i].Tyyppi;
+        row.insertCell(4).innerHTML = tyres[i].Saldo;
+        row.insertCell(5).innerHTML = '<input type="number" name="RengasCount" id="' + tyres[i].RengasID + '" min="0" max="' + tyres[i].Saldo + '">';
+        if (tyres[i].Merkki.trim() == "Nokian")
+          row.insertCell(6).innerHTML = '<img  height="35px" src="./images/NokianRengas.jpg">';
+        else if (tyres[i].Merkki.trim() == "Kumho")
+          row.insertCell(6).innerHTML = '<img  height="35px" src="./images/KuhmoRengas.jpg">';
+        else if (tyres[i].Merkki.trim() == "Hankook")
+          row.insertCell(6).innerHTML = '<img  height="35px" src="./images/HankhookRengas.jpg">';
+      }
+    }
+
+    async function getTyres() {
+      let size = document.getElementById("sizeSelect").value;
+      let table = document.getElementById("rengasTable");
+
+      if (!size) return;
+
+      tyres = await getAJAX("gettyresbysize?size=" + size);
+      renderTable();
+    }
+
+    async function getSizes() {
+      let sizes = await getAJAX("getsizes");
+      let sizeSelect = document.getElementById("sizeSelect");
+
+      for (let i = 0; i < sizes.length; i++) {
+        sizeSelect.options[sizeSelect.options.length] = new Option(
+          sizes[i],
+          sizes[i]
+        );
+      }
+    }
+
+    function Order() {
+      let amounts = document.getElementsByName("RengasCount");
+
+      let orders = [];
+      let fail = false;
+      for (let i = 0; i < amounts.length; i++) {
+        if (!amounts[i].value || amounts[i].value <= 0) continue;
+
+        tyres.map((tyre) => {
+          if (parseInt(tyre.RengasID) !== parseInt(amounts[i].id)) return false;
+          if (parseInt(tyre.Saldo) < parseInt(amounts[i].value)) fail = true;
+
+          let order = {
+            tyre: tyre,
+            amount: amounts[i].value ? amounts[i].value : 0
+          };
+          orders.push(order);
+        });
       }
 
-      function renderTable() {
-        let table = document.getElementById("rengasTable");
-        clearCells(table);
+      if (orders.length == 0) fail = true;
 
-        for (let i = 0; i < tyres.length; i++) {
-          let row = table.insertRow(table.rows.length);
+      if (!document.getElementById("mail").value) fail = true;
+      if (!document.getElementById("name").value) fail = true;
+      if (!document.getElementById("phone").value) fail = true;
+      if (!document.getElementById("address").value) fail = true;
+      if (!document.getElementById("delivery").value) fail = true;
 
-          row.insertCell(0).innerHTML =
-            tyres[i].Hinta.replace(".", ",") + " 	&euro;";
-          row.insertCell(1).innerHTML = tyres[i].Merkki;
-          row.insertCell(2).innerHTML = tyres[i].Malli;
-          row.insertCell(3).innerHTML = tyres[i].Tyyppi;
-          row.insertCell(4).innerHTML = tyres[i].Saldo;
-        }
-      }
+      if (fail) {
+       document.getElementById("error").classList.remove("invisible");  
+       return;s
+      };
 
-      async function getTyres() {
-        let size = document.getElementById("sizeSelect").value;
-        let table = document.getElementById("rengasTable");
+      var f = document.createElement('form');
+      f.action = './order/';
+      f.method = 'POST';
 
-        if (!size) return;
+      var i = document.createElement('input');
+      i.type = 'hidden';
+      i.name = 'fragment';
+      i.value = JSON.stringify({
+        orders: orders,
+        email: document.getElementById("mail").value,
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        delivery: document.getElementById("delivery").value
+      });
+      f.appendChild(i);
 
-        tyres = await getAJAX("gettyresbysize?size=" + size);
-        renderTable();
-      }
+      document.body.appendChild(f);
+      f.submit();
+    }
 
-      async function getSizes() {
-        let sizes = await getAJAX("getsizes");
-        let sizeSelect = document.getElementById("sizeSelect");
+    getSizes();
+  </script>
+</body>
 
-        for (let i = 0; i < sizes.length; i++) {
-          sizeSelect.options[sizeSelect.options.length] = new Option(
-            sizes[i],
-            sizes[i]
-          );
-        }
-      }
-
-      getSizes();
-    </script>
-  </body>
 </html>
